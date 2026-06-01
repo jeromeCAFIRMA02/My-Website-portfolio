@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Jerome Atelier | Creative Web &amp; Graphic Designer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#2f73b7",
+                        "secondary": "#0b2343",
+                        "background": "#f4f4f4",
+                        "foreground": "#0a0a0a",
+                        "muted-blue": "#5c88b8",
+                        "surface": "#ffffff",
+                        "on-surface": "#0a0a0a",
+                        "on-surface-variant": "#414750",
+                        "outline": "#727782"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "baseline": "8px",
+                        "section-padding-desktop": "160px",
+                        "section-padding-mobile": "80px",
+                        "gutter": "24px",
+                        "margin-desktop": "auto",
+                        "max-width-desktop": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Sora", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --dark-navy: #0b2343;
+            --primary-blue: #2f73b7;
+            --soft-white: #f4f4f4;
+            --deep-black: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--soft-white);
+            color: var(--deep-black);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-section, .parallax-item { 
+                opacity: 1 !important; 
+                transform: none !important; 
+                transition: none !important; 
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Text Reveal */
+        .reveal-text-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .reveal-text-line span {
+            display: inline-block;
+            transform: translateY(105%);
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .reveal.active .reveal-text-line span {
+            transform: translateY(0);
+        }
+
+        /* Section Transition */
+        .reveal-section {
+            opacity: 0;
+            transform: scale(0.98) translateY(20px);
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-section.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(11, 35, 67, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .typing-container::after {
+            content: '|';
+            animation: blink 1s infinite;
+            margin-left: 2px;
+            color: var(--primary-blue);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--primary-blue);
+            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-premium {
+            background: var(--dark-navy);
+            color: white;
+            transition: background-color 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--primary-blue);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: -1;
+        }
+
+        .btn-premium:hover::before {
+            width: 100%;
+        }
+
+        .floating-element {
+            animation: floating 8s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        html {
+            scroll-behavior: initial;
+        }
+
+        /* Magnetic Area Helper */
+        .magnetic-wrap {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .modal-open {
+            overflow: hidden;
+        }
+
+        .cert-modal {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .cert-modal.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .cert-modal__backdrop {
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .cert-modal.is-open .cert-modal__backdrop {
+            opacity: 1;
+        }
+
+        .cert-modal__dialog {
+            opacity: 0;
+            transform: translateY(24px) scale(0.94);
+            transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .cert-modal.is-open .cert-modal__dialog {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .cert-card-trigger {
+            cursor: pointer;
+        }
+
+        .cert-card-trigger:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 6px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cert-modal,
+            .cert-modal__backdrop,
+            .cert-modal__dialog {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="selection:bg-primary/30">
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 px-8 md:px-16 py-8 flex justify-between items-center" id="main-header">
+        <div class="flex items-center gap-4">
+            <img 
+                src="img/logo1.png" 
+                alt="Jerome Atelier Logo"
+                class="w-16 h-16 object-cover"
+            />
+            <div class="text-2xl font-headline font-bold text-secondary tracking-tighter">
+                Jerome Atelier
+            </div>
+        </div>
+
+        <nav class="hidden md:flex gap-12 items-center ml-auto">
+            <a class="nav-link active text-secondary font-medium text-sm uppercase tracking-widest" href="#home">Home</a>
+            <a class="nav-link text-secondary/60 font-medium text-sm uppercase tracking-widest hover:text-secondary transition-colors" href="#about">About</a>
+            <a class="nav-link text-secondary/60 font-medium text-sm uppercase tracking-widest hover:text-secondary transition-colors" href="#portfolio">Works</a>
+            <a class="nav-link text-secondary/60 font-medium text-sm uppercase tracking-widest hover:text-secondary transition-colors" href="#certificates">Certificates</a>
+            <a class="nav-link text-secondary/60 font-medium text-sm uppercase tracking-widest hover:text-secondary transition-colors" href="#services">Services</a>
+            <a class="nav-link text-secondary/60 font-medium text-sm uppercase tracking-widest hover:text-secondary transition-colors" href="#contact">Contact</a>
+            <a 
+                class="hidden lg:inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#2f73b7] text-white text-sm font-semibold tracking-wide transition-all duration-300 hover:bg-[#25639d] hover:scale-105 shadow-lg hover:shadow-xl"
+                href="#"
+            >
+                CV.pdf
+            </a>
+        </nav>
+
+        <div class="flex gap-6 items-center">
+            <button class="md:hidden text-secondary" id="menu-toggle">
+                <span class="material-symbols-outlined text-3xl">menu_open</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-secondary z-[60] flex flex-col items-center justify-center gap-10 translate-x-full transition-transform duration-700 md:hidden" id="mobile-menu">
+        <button class="absolute top-8 right-8 text-white" id="menu-close">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#home">Home</a>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#about">About</a>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#portfolio">Works</a>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#certificates">Certificates</a>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#services">Services</a>
+        <a class="text-4xl font-headline font-bold text-white hover:text-primary transition-colors" href="#contact">Contact</a>
+    </div>
+
+    <main>
+        <!-- Section 1: Cinematic Hero -->
+        <section class="mt-[80px] min-h-screen flex flex-col justify-center px-8 md:px-16 relative overflow-hidden reveal-section active" id="home">
+            <!-- Mouse-tracking background shapes -->
+            <div class="absolute top-1/4 right-10 w-64 h-64 bg-primary/10 rounded-full blur-[120px] floating-element parallax-bg" data-speed="0.05"></div>
+            <div class="absolute bottom-1/4 left-10 w-96 h-96 bg-muted-blue/10 rounded-full blur-[150px] floating-element parallax-bg" data-speed="-0.03" style="animation-delay: -2s;"></div>
+            <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center z-10">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="reveal active">
+                        <span class="inline-block text-primary font-bold tracking-[0.3em] uppercase text-xs mb-6 reveal-text-line"><span>My Portfolio </span></span>
+                        <h1 class="font-headline text-6xl md:text-8xl lg:text-[90px] leading-[0.9] font-extrabold text-secondary tracking-tighter">
+                            <span class="reveal-text-line"><span>Jerome</span></span>
+                            <span class="reveal-text-line"><span>Cafirma</span></span>
+                        </h1>
+                    </div>
+                    <div class="h-16 flex items-center reveal delay-300 active">
+                        <span class="font-headline text-2xl md:text-3xl text-muted-blue font-light typing-container" id="typing-text">Graphic Master</span>
+                    </div>
+                    <p class="font-body text-xl text-secondary/50 max-w-lg leading-relaxed reveal delay-500 active">
+                        Crafting digital narratives where architectural precision meets aesthetic fluidity. I build interfaces that resonate and visuals that stay.
+                    </p>
+                    <div class="flex flex-wrap gap-8 items-center reveal delay-700 active">
+                        <div class="magnetic-wrap">
+                            <a class="btn-premium px-10 py-5 rounded-full font-bold text-sm tracking-widest uppercase flex items-center gap-3 magnetic-btn" href="#portfolio">
+                                Exploration <span class="material-symbols-outlined text-lg">south_east</span>
+                            </a>
+                        </div>
+                        <div class="magnetic-wrap">
+                            <a class="text-secondary font-bold text-sm tracking-widest uppercase hover:text-primary transition-colors border-b-2 border-secondary/10 pb-1" href="#contact">
+                                Let's Talk
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 relative reveal delay-300 active">
+                    <div class="relative w-full aspect-[6/5] rounded-[2rem] overflow-hidden shadow-2xl group parallax-bg" data-speed="0.02">
+                        <img alt="Jerome Cafirma" class="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-100" src="img/pfp3.png"/>
+                        <div class="absolute inset-0 group-hover:bg-transparent transition-colors duration-700"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl hidden md:block border-l-4 border-l-primary parallax-bg" data-speed="-0.04">
+                        <p class="text-xs uppercase tracking-widest font-bold text-secondary mb-1">Current Focus</p>
+                        <p class="text-sm text-secondary/70 font-medium italic">"Designing the future, one pixel at a time."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Immersive About -->
+       <section class="pt-24 pb-18 md:pt-36 md:pb-20 px-6 md:px-12 reveal-section active" id="about">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-24 items-start">
+                    <div class="space-y-16 reveal">
+                        <div>
+                            <h2 class="font-headline text-5xl md:text-6xl font-bold text-secondary mb-8 leading-tight">
+                                <span class="reveal-text-line"><span>Aesthetics</span></span>
+                                <span class="reveal-text-line"><span class="text-primary italic">Refined</span></span>
+                                <span class="reveal-text-line"><span>.</span></span>
+                            </h2>
+                            <p class="font-body text-lg text-secondary/70 leading-[1.8] max-w-xl">
+                                I'm an IT student passionate about web design and creative visual storytelling. My approach blends technical precision with artistic flair, ensuring every project is as functional as it is beautiful. Currently pursuing a Bachelor's Degree in Information Technology, specializing in Human-Computer Interaction.
+                            </p>
+                        </div>
+                        <div class="space-y-8">
+                            
+                        </div>
+                    </div>
+                    <div class="space-y-12">
+                        <div class="grid grid-cols-2 gap-6 reveal">
+                            <div class="space-y-6">
+                                <div class="glass-card p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-500">
+                                    <span class="material-symbols-outlined text-primary text-4xl mb-6">polyline</span>
+                                    <h4 class="font-headline font-bold text-secondary mb-2">Figma</h4>
+                                    <p class="text-sm text-secondary/60">Prototyping &amp; Layout</p>
+                                </div>
+                                <div class="glass-card p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-500">
+                                    <span class="material-symbols-outlined text-primary text-4xl mb-6">javascript</span>
+                                    <h4 class="font-headline font-bold text-secondary mb-2">Interactive</h4>
+                                    <p class="text-sm text-secondary/60">Modern Frameworks</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6 pt-12">
+                                <div class="glass-card p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-500">
+                                    <span class="material-symbols-outlined text-primary text-4xl mb-6">brush</span>
+                                    <h4 class="font-headline font-bold text-secondary mb-2">Branding</h4>
+                                    <p class="text-sm text-secondary/60">Visual Identity</p>
+                                </div>
+                                <div class="glass-card p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-500">
+                                    <span class="material-symbols-outlined text-primary text-4xl mb-6">auto_awesome</span>
+                                    <h4 class="font-headline font-bold text-secondary mb-2">Motion</h4>
+                                    <p class="text-sm text-secondary/60">Fluid Animations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Premium Portfolio -->
+        <section class="pt-28 pb-20 md:pt-36 md:pb-24 bg-secondary text-white reveal-section" id="portfolio">
+            <div class="px-8 md:px-16 max-w-7xl mx-auto space-y-24">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-8 reveal">
+                    <div class="space-y-6">
+                        <span class="text-primary font-bold tracking-[0.3em] uppercase text-xs">Portfolio Showcase</span>
+                        <h2 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter">
+                            <span class="reveal-text-line"><span>Selected Works.</span></span>
+                        </h2>
+                    </div>
+                    
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20 items-start">
+                    <!-- Project 1 -->
+                    <div class="group reveal space-y-8 cursor-pointer parallax-item" data-speed="0.1">
+                        <div class="relative max-w-[300px] mx-auto aspect-[5/4] rounded-2xl overflow-hidden bg-white/5">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="img/BC1.png"/>
+                            <div class="absolute inset-0 bg-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                                <a href="https://bit.ly/BeanChilling">
+                                <span class="w-20 h-20 bg-white text-secondary rounded-full flex items-center justify-center font-bold text-xs uppercase tracking-widest scale-50 group-hover:scale-100 transition-transform duration-500">
+                                    View</span></a>
+                            </div>
+                        </div>
+                        <div class="space-y-2 px-4">
+                            <span class="text-primary font-bold text-[10px] tracking-[0.4em] uppercase">Web Design</span>
+                            <h3 class="font-headline text-3xl font-bold tracking-tight">Bean Chilling Cafe</h3>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group reveal delay-200 space-y-8 cursor-pointer parallax-item" data-speed="0.1">
+                       <div class="relative max-w-[300px] mx-auto aspect-[5/4] rounded-2xl overflow-hidden bg-white/5">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVa_zCF5C1z5F077XHQ5QYslazIFx2izcsvPsTgrgFk-h7PK3xal-GTXm_38vJloklUoVRqfSzqP-hiMnisbdMooanekLE6ExXie_oJwU2xgGJMcwoxtpCmAi3_3R43YJ1BoKADa2d9k5YWRq2YmBfbREuur1LTe1GuC43i6AxZwm6EAXJYI4jE5Vv7IQh1n2SN0uJoenyNN1e07GEUJifzXb1-tmkgMLzRlvt-Di57DbBU5u93qszBY4g8QZLNPizVsobj9KhOo4"/>
+                            <div class="absolute inset-0 bg-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                                <span class="w-20 h-20 bg-white text-secondary rounded-full flex items-center justify-center font-bold text-xs uppercase tracking-widest scale-50 group-hover:scale-100 transition-transform duration-500">View</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 px-4">
+                            <span class="text-primary font-bold text-[10px] tracking-[0.4em] uppercase">Graphic Design</span>
+                            <h3 class="font-headline text-3xl font-bold tracking-tight">Social Media Designs</h3>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group reveal delay-400 space-y-8 cursor-pointer parallax-item" data-speed="0.1">
+                        <div class="relative max-w-[300px] mx-auto aspect-[5/4] rounded-2xl overflow-hidden bg-white/5">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAITbrAh1pyNru2zXTjyhtgNtOhfxrLWzWCtvjX3b7dgGBJvcAm9t48FYJ0AUAxb1lHkC18ZBCmS5nTk5gi4QThREP-QyYP0Sp3DzFH1_nNPvpQX0-OlMzwKxuVvbEYsTrRvZl1IqnRsM7DNIzMxlZD36MWj1Um7sIGQwVoDkBOx0CN-WmUi1jX2GR6xwKa6yKf6rlP17IVJvIYHYq-FYwYsFD1ukEJZfxL3SlOXN4yE-K9mtjIYVZ_Ms4-hxvOU7uz0CumsFDmfsQ"/>
+                            <div class="absolute inset-0 bg-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                                <span class="w-20 h-20 bg-white text-secondary rounded-full flex items-center justify-center font-bold text-xs uppercase tracking-widest scale-50 group-hover:scale-100 transition-transform duration-500">View</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 px-4">
+                            <span class="text-primary font-bold text-[10px] tracking-[0.4em] uppercase">Presentations</span>
+                            <h3 class="font-headline text-3xl font-bold tracking-tight">Presentation Designs</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Certificates -->
+        <section class="py-section-padding-mobile md:py-section-padding-desktop px-8 md:px-16 reveal-section" id="certificates">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-24 reveal">
+                    <span class="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Proven Experience</span>
+                    <h2 class="font-headline text-5xl font-bold text-secondary">
+                        <span class="reveal-text-line"><span>Certifications.</span></span>
+                    </h2>
+                </div>
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                        <!-- Card 1 -->
+                        <div class="glass-card p-10 rounded-[2.5rem] reveal delay-100 group hover:bg-primary transition-all duration-700 h-full cert-card-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="certificate-modal" data-cert-card data-cert-title="Graphic Design Essentials" data-cert-provider="Canva" data-cert-image="img/graphic design essentials.png" data-cert-description="A certification focused on core graphic design principles, visual hierarchy, layout composition, and practical Canva workflows.">
+                            <span class="material-symbols-outlined text-primary group-hover:text-white text-5xl mb-8 transition-colors">
+                                verified
+                            </span>
+
+                            <h4 class="font-headline text-xl font-bold text-secondary group-hover:text-white transition-colors mb-2">
+                                Graphic Design Essentials
+                            </h4>
+
+                            <p class="text-secondary/50 group-hover:text-white/70 transition-colors text-sm uppercase tracking-widest font-bold">
+                                Canva
+                            </p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="glass-card p-10 rounded-[2.5rem] reveal delay-200 group hover:bg-primary transition-all duration-700 h-full cert-card-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="certificate-modal" data-cert-card data-cert-title="AI Skills for Students" data-cert-provider="Canva" data-cert-image="img/c2.png" data-cert-description="A certification covering practical AI-assisted creative workflows, student productivity tools, and responsible use of generative features in design tasks.">
+                            <span class="material-symbols-outlined text-primary group-hover:text-white text-5xl mb-8 transition-colors">
+                                verified
+                            </span>
+
+                            <h4 class="font-headline text-xl font-bold text-secondary group-hover:text-white transition-colors mb-2">
+                                AI Skills for Students
+                            </h4>
+
+                            <p class="text-secondary/50 group-hover:text-white/70 transition-colors text-sm uppercase tracking-widest font-bold">
+                                Canva
+                            </p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="glass-card p-10 rounded-[2.5rem] reveal delay-300 group hover:bg-primary transition-all duration-700 h-full cert-card-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="certificate-modal" data-cert-card data-cert-title="Canva Essentials" data-cert-provider="Canva" data-cert-image="img/jerome-a.-cafirma-canva-essentials-badge.png" data-cert-description="A foundational Canva certification highlighting essential tools, brand asset handling, and efficient content creation across digital formats.">
+                            <span class="material-symbols-outlined text-primary group-hover:text-white text-5xl mb-8 transition-colors">
+                                verified
+                            </span>
+
+                            <h4 class="font-headline text-xl font-bold text-secondary group-hover:text-white transition-colors mb-2">
+                                Canva Essentials
+                            </h4>
+
+                            <p class="text-secondary/50 group-hover:text-white/70 transition-colors text-sm uppercase tracking-widest font-bold">
+                                Canva
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cert-modal fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8" id="certificate-modal" aria-hidden="true">
+            <div class="cert-modal__backdrop absolute inset-0 bg-secondary/75 backdrop-blur-sm" data-cert-close></div>
+            <div class="cert-modal__dialog glass-card relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] border border-white/20 bg-white/75 p-5 md:p-8 shadow-[0_30px_80px_rgba(11,35,67,0.22)]" role="dialog" aria-modal="true" aria-labelledby="certificate-modal-title" aria-describedby="certificate-modal-provider certificate-modal-description">
+                <button class="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-secondary/10 bg-white/80 text-secondary transition-all duration-300 hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="button" aria-label="Close certificate modal" data-cert-close>
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+                <div class="grid gap-6 md:gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] items-start">
+                    <div class="rounded-[1.5rem] border border-white/30 bg-white/50 p-3 md:p-4 shadow-[0_18px_45px_rgba(11,35,67,0.08)]">
+                        <img
+                            src="img/graphic design essentials.png"
+                            alt="Certificate Preview"
+                            class="w-full rounded-2xl object-cover max-h-[60vh]"
+                            id="certificate-modal-image"
+                        />
+                    </div>
+                    <div class="flex flex-col justify-center pt-10 md:pt-12 lg:pt-6">
+                        <span class="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Certification Details</span>
+                        <h3 class="font-headline text-3xl md:text-4xl font-bold tracking-tight text-secondary mb-3" id="certificate-modal-title">Graphic Design Essentials</h3>
+                        <p class="text-secondary/60 text-sm uppercase tracking-[0.28em] font-bold mb-6" id="certificate-modal-provider">Canva</p>
+                        <p class="text-secondary/70 text-base md:text-lg leading-relaxed" id="certificate-modal-description">A certification focused on core graphic design principles, visual hierarchy, layout composition, and practical Canva workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Solutions -->
+        <section class="py-section-padding-mobile md:py-section-padding-desktop px-3 md:px-9 bg-[#0a0a0a] reveal-section" id="services">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <span class="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-6 block">Services</span>
+                    <h2 class="font-headline text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tighter">
+                        <span class="reveal-text-line"><span>Expert</span></span>
+                        <span class="reveal-text-line"><span>Solutions.</span></span>
+                    </h2>
+                    <p class="mt-12 text-white/50 text-xl leading-relaxed max-w-lg">Tailored creative services designed to elevate your brand. We don't just build, we craft experiences.</p>
+                    <div class="mt-16 flex gap-6">
+                        <div class="w-16 h-[1px] bg-white/20 mt-4"></div>
+                        <div class="space-y-4">
+                            <p class="text-white font-bold text-lg">"Strategy first, design follows."</p>
+                            <p class="text-white/40 text-sm">Design Philosophy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4 reveal delay-300">
+                    <!-- CARD 01 -->
+                    <div class="group p-4 glass-card bg-white/5 border border-white/10 rounded-xl hover:bg-primary/10 transition-all duration-500">
+
+                        <div class="flex justify-between items-start mb-3">
+
+                            <span class="material-symbols-outlined text-primary text-2xl">
+                                desktop_windows
+                            </span>
+
+                            <span class="text-white/10 text-3xl font-headline font-black">
+                                01
+                            </span>
+
+                        </div>
+
+                        <h3 class="font-headline text-xl font-bold text-white mb-2">
+                            Web Design
+                        </h3>
+
+                        <p class="text-white/50 font-body text-xs leading-relaxed">
+                            Modern, responsive, and functional websites crafted with clean and user-friendly design.
+                        </p>
+
+                    </div>
+
+                    <!-- CARD 02 -->
+                    <div class="group p-4 glass-card bg-white/5 border border-white/10 rounded-xl hover:bg-primary/10 transition-all duration-500">
+
+                        <div class="flex justify-between items-start mb-3">
+
+                            <span class="material-symbols-outlined text-primary text-2xl">
+                                palette
+                            </span>
+
+                            <span class="text-white/10 text-3xl font-headline font-black">
+                                02
+                            </span>
+
+                        </div>
+
+                        <h3 class="font-headline text-xl font-bold text-white mb-2">
+                            Graphic Design
+                        </h3>
+
+                        <p class="text-white/50 font-body text-xs leading-relaxed">
+                            Creative visual materials and branding designs that connect with your audience.
+                        </p>
+
+                    </div>
+
+                    <!-- CARD 03 -->
+                    <div class="group p-4 glass-card bg-white/5 border border-white/10 rounded-xl hover:bg-primary/10 transition-all duration-500">
+
+                        <div class="flex justify-between items-start mb-3">
+
+                            <span class="material-symbols-outlined text-primary text-2xl">
+                                layers
+                            </span>
+
+                            <span class="text-white/10 text-3xl font-headline font-black">
+                                03
+                            </span>
+
+                        </div>
+
+                        <h3 class="font-headline text-xl font-bold text-white mb-2">
+                            UI/UX Design
+                        </h3>
+
+                        <p class="text-white/50 font-body text-xs leading-relaxed">
+                            User-focused interface designs with clean navigation and seamless experiences.
+                        </p>
+
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Contact -->
+        <section class="py-section-padding-mobile md:py-section-padding-desktop px-8 md:px-16 reveal-section" id="contact">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
+                <div class="space-y-12 reveal">
+                    <div class="space-y-6">
+                        <h2 class="font-headline text-4xl md:text-6xl font-black text-secondary tracking-tighter leading-none">
+                            <span class="reveal-text-line"><span>Let's</span></span>
+                            <span class="reveal-text-line"><span class="text-primary italic">Connect</span></span>
+                            <span class="reveal-text-line"><span>.</span></span>
+                        </h2>
+                        <p class="text-secondary/60 text-xl font-body max-w-lg">Ready to start your next project? Let's discuss how we can bring your vision to life with precision.</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-8 group">
+                            <div class="magnetic-wrap">
+                                <div class="w-16 h-16 rounded-3xl bg-secondary text-white flex items-center justify-center group-hover:bg-primary transition-all duration-500 magnetic-btn">
+                                    <span class="material-symbols-outlined text-3xl">mail</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-secondary/40 mb-1">Email Me</p>
+                                <p class="text-1xl font-headline font-medium text-secondary">jeromecafirma.itspecialist@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="glass-card p-5 rounded-[2.5rem] border-l-[6px] border-l-primary group cursor-pointer hover:bg-white transition-all duration-500">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary text-3xl">videocam</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-headline font-bold text-l text-secondary">Zoom Meeting</h4>
+                                        <p class="text-secondary/50 text-sm">Schedule a 30-min discovery call</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined text-secondary/20 group-hover:text-primary group-hover:translate-x-2 transition-all">arrow_forward_ios</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-4 md:p-10 rounded-[3.5rem] reveal delay-300">
+                    <form class="space-y-4" id="contact-form">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-[0.2em] font-black text-secondary/40 ml-1">Your Name</label>
+                                <input class="w-full bg-secondary/5 border-none rounded-2xl py-3 px-3.5 focus:ring-2 focus:ring-primary/20 transition-all text-secondary font-medium" placeholder="Ex. John Doe" required="" type="text"/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-[0.2em] font-black text-secondary/40 ml-1">Email Address</label>
+                                <input class="w-full bg-secondary/5 border-none rounded-2xl py-3 px-3.5 focus:ring-2 focus:ring-primary/20 transition-all text-secondary font-medium" placeholder="john@example.com" required="" type="email"/>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-[0.2em] font-black text-secondary/40 ml-1">Service Interest</label>
+                            <select class="w-full bg-secondary/5 border-none rounded-2xl py-3 px-3.5 focus:ring-2 focus:ring-primary/20 transition-all text-secondary font-medium appearance-none">
+                                <option value="web">Web Design</option>
+                                <option value="graphic">Graphic Design</option>
+                                <option value="uiux">UI/UX Strategy</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-[0.2em] font-black text-secondary/40 ml-1">Project Brief</label>
+                            <textarea class="w-full bg-secondary/5 border-none rounded-xl py-4 px-4.5 focus:ring-2 focus:ring-primary/20 transition-all text-secondary font-medium resize-none" placeholder="Describe your vision..." required="" rows="5"></textarea>
+                        </div>
+                        <div class="magnetic-wrap w-full">
+                            <button class="w-full btn-premium py-3 rounded-2xl font-headline font-bold text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-4 group magnetic-btn" type="submit">
+                                Send Message <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">send</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 px-8 md:px-16 border-t bg-surface border-secondary/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+           <div class="flex items-center gap-4">
+             <img 
+                src="img/logo1.png" 
+                alt="Jerome Atelier Logo"
+                class="w-16 h-16 object-cover"
+            />
+            <div class="text-3xl font-headline font-bold text-secondary tracking-tighter">Jerome Atelier</div>
+           </div>
+            <div class="flex flex-col items-center gap-6">
+                <div class="flex gap-12 text-[10px] uppercase tracking-[0.2em] font-black text-secondary/40">
+                    <a class="hover:text-primary transition-colors" href="#">Privacy</a>
+                    <a class="hover:text-primary transition-colors" href="#">Terms</a>
+                    <a class="hover:text-primary transition-colors" href="#">Socials</a>
+                </div>
+                <p class="text-[11px] text-secondary/30 font-medium">© 2024 Jerome Atelier. Crafted with precision.</p>
+            </div>
+            <button class="w-16 h-16 rounded-full border border-secondary/5 flex items-center justify-center hover:bg-secondary hover:text-white transition-all group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">north</span>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Typing Animation
+        const textElement = document.getElementById('typing-text');
+        const phrases = ["Web Designer", "Graphic Master", "Interaction Designer", "Visual Storyteller"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            if (!textElement) return;
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 40;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 120;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 3000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 400;
+            }
+            setTimeout(type, typeSpeed);
+        }
+
+        // 2. Intersection Observer for Reveals
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-section').forEach(el => revealObserver.observe(el));
+
+        // 3. Header Scroll State
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                header.classList.remove('py-8');
+                header.classList.add('py-4', 'bg-white/80', 'backdrop-blur-xl', 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]');
+            } else {
+                header.classList.add('py-8');
+                header.classList.remove('py-4', 'bg-white/80', 'backdrop-blur-xl', 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]');
+            }
+        });
+
+        // 4. Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && menuClose && mobileMenu) {
+            menuToggle.onclick = () => {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            };
+            menuClose.onclick = () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            };
+            mobileMenu.querySelectorAll('a').forEach(link => link.onclick = () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+        }
+
+        // 5. Cinematic Effects (Mouse Tracking & Parallax)
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        const parallaxItems = document.querySelectorAll('.parallax-bg');
+        const scrollItems = document.querySelectorAll('.parallax-item');
+
+        window.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+
+            // Mouse-Tracking Background Movement (Subtle Parallax)
+            parallaxItems.forEach(item => {
+                const speed = item.getAttribute('data-speed') || 0.05;
+                const xShift = (window.innerWidth / 2 - x) * speed;
+                const yShift = (window.innerHeight / 2 - y) * speed;
+                item.style.transform = `translate(${xShift}px, ${yShift}px)`;
+            });
+
+            // Magnetic Button Effect
+            magneticBtns.forEach(btn => {
+                const wrap = btn.parentElement;
+                const rect = wrap.getBoundingClientRect();
+                const btnX = rect.left + rect.width / 2;
+                const btnY = rect.top + rect.height / 2;
+                const distance = Math.sqrt(Math.pow(x - btnX, 2) + Math.pow(y - btnY, 2));
+
+                if (distance < 120) {
+                    const moveX = (x - btnX) * 0.35;
+                    const moveY = (y - btnY) * 0.35;
+                    btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    btn.classList.add('shadow-xl');
+                } else {
+                    btn.style.transform = `translate(0px, 0px)`;
+                    btn.classList.remove('shadow-xl');
+                }
+            });
+        });
+
+        // 6. Enhanced Scroll Parallax (Depth)
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            scrollItems.forEach(item => {
+                const speed = item.getAttribute('data-speed') || 0.1;
+                const yPos = -(scrolled * speed);
+                // Only apply if in viewport to save perf
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    item.style.transform = `translateY(${yPos * 0.5}px)`;
+                }
+            });
+        });
+
+        // 7. Certificate Modal
+        const certificateModal = document.getElementById('certificate-modal');
+        const certificateCards = document.querySelectorAll('[data-cert-card]');
+        const certificateModalImage = document.getElementById('certificate-modal-image');
+        const certificateModalTitle = document.getElementById('certificate-modal-title');
+        const certificateModalProvider = document.getElementById('certificate-modal-provider');
+        const certificateModalDescription = document.getElementById('certificate-modal-description');
+        const certificateModalDialog = certificateModal?.querySelector('.cert-modal__dialog');
+        const certificateModalCloseButtons = certificateModal?.querySelectorAll('[data-cert-close]');
+        let certificateLastFocusedCard = null;
+
+        const getCertificateModalFocusableElements = () => {
+            if (!certificateModalDialog) return [];
+            return [...certificateModalDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
+                .filter(element => !element.hasAttribute('disabled') && !element.getAttribute('aria-hidden'));
+        };
+
+        const openCertificateModal = (card) => {
+            if (!certificateModal || !card) return;
+
+            certificateLastFocusedCard = card;
+            certificateModalImage.src = card.dataset.certImage || 'assets/certificates/sample-certificate.jpg';
+            certificateModalImage.alt = `${card.dataset.certTitle || 'Certificate'} Preview`;
+            certificateModalTitle.textContent = card.dataset.certTitle || 'Certification Title';
+            certificateModalProvider.textContent = card.dataset.certProvider || 'Certification Provider';
+            certificateModalDescription.textContent = card.dataset.certDescription || 'No description provided for this certification yet.';
+
+            certificateModal.classList.add('is-open');
+            certificateModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            document.body.style.overflow = 'hidden';
+
+            const closeButton = certificateModal.querySelector('button[data-cert-close]');
+            closeButton?.focus();
+        };
+
+        const closeCertificateModal = () => {
+            if (!certificateModal || !certificateModal.classList.contains('is-open')) return;
+
+            certificateModal.classList.remove('is-open');
+            certificateModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            certificateLastFocusedCard?.focus();
+        };
+
+        certificateCards.forEach(card => {
+            card.addEventListener('click', () => openCertificateModal(card));
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openCertificateModal(card);
+                }
+            });
+        });
+
+        certificateModalCloseButtons?.forEach(button => {
+            button.addEventListener('click', closeCertificateModal);
+        });
+
+        certificateModal?.addEventListener('click', (event) => {
+            if (event.target === certificateModal) {
+                closeCertificateModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Tab' && certificateModal?.classList.contains('is-open')) {
+                const focusableElements = getCertificateModalFocusableElements();
+                if (!focusableElements.length) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (event.shiftKey && document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                } else if (!event.shiftKey && document.activeElement === lastElement) {
+                    event.preventDefault();
+                    firstElement.focus();
+                }
+            }
+
+            if (event.key === 'Escape') {
+                closeCertificateModal();
+            }
+        });
+
+        window.onload = type;
+
+        // Contact form simulation
+        document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+            setTimeout(() => {
+                alert('Message delivered with cinematic precision!');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                e.target.reset();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
